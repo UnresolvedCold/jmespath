@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: abbrev bib c calendar comm convenience data docs emulations extensions faces files frames games hardware help hypermedia i18n internal languages lisp local maint mail matching mouse multimedia news outlines processes terminals tex tools unix vc wp
 ;; Homepage: https://github.com/unresolvedcold/jmespath
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") (json-mode "1.8.0"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -33,6 +33,8 @@
 ;; This utility is dependent on json-mode, please instal that too.
 ;;
 ;;; Code:
+
+(require 'json-mode)
 
 (defun jmespath-query (query)
   "Execute a JMESPath QUERY on the current buffer."
