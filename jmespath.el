@@ -35,7 +35,7 @@
 ;;; Code:
 
 (defun jmespath-query (query)
-  "Execute a JMESPath QUERY on the current buffer"
+  "Execute a JMESPath QUERY on the current buffer."
   (interactive "sEnter JMESPath query: ")
   (save-excursion
     (let* ((json-data (buffer-substring-no-properties (point-min) (point-max)))
