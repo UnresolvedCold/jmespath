@@ -1,0 +1,47 @@
+#+title: Readme
+
+* JMESPath Query for Emacs
+
+This is a small utility that uses ~jp~ underneath to query your JSON buffer and displays the result in a new buffer named ~*JMESPath Result*~.
+
+* Dependencies
+
+** jp command line utility
+
+Please refer [[https://github.com/jmespath/jp][jmespath]] repository to know more about the ~jp~ command line utility.
+
+** json-mode in emacs
+
+To install ~json-mode~, please refer the [[https://github.com/json-emacs/json-mode][json-mode]] repository.
+
+* Usage
+
+1. Open a ~JSON~ file.
+2. Run the function using ~M-X jmespath-query~.
+3. Enter your JMESPath query and press enter.
+
+* Example
+
+Open a scratch buffer with ~json-mode~ or open the below source code in org special edit.
+
+#+begin_src json
+{"employees":[
+    {"name":"Shyam", "email":"shyamjaiswal@gmail.com"},
+    {"name":"Bob", "email":"bob32@gmail.com"},
+    {"name":"Jai", "email":"jai87@gmail.com"}
+]}
+#+end_src
+
+Run the query ~@.employees[*].name~ by typing ~M-X jmespath-query~ to get an array of employee names.
+
+The output would be something like this.
+
+#+begin_src json
+JMESPath Query: @.employees[*].name
+
+[
+  "Shyam",
+  "Bob",
+  "Jai"
+]
+#+end_src
