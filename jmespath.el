@@ -1,4 +1,4 @@
-;;; jmespath.el --- Description -*- lexical-binding: t; -*-
+;;; jmespath.el --- JSON query using jmespath -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2023 Shubham Kumar
 ;;
