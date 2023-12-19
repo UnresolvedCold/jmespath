@@ -14,10 +14,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; Commentary:
-;; I use JMESPath to query my JSON files on daily basis.
-;; But I never wanted to switch to browser or look in the terminal for the result.
-;; I tried searching for JMESPath library for Emacs but all in vain.
-;; So I wrote a small utility to call jp on a JSON file and display the result in a new buffer.
+;; Library to query json using JMESPath.
 ;;
 ;;;  Description:
 ;;
