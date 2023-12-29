@@ -47,7 +47,8 @@
   (save-excursion
     (let* ((json-data (buffer-substring-no-properties (point-min) (point-max)))
            (quoted-json-data (shell-quote-argument json-data))
-           (result (shell-command-to-string (format "echo %s | jp '%s'" quoted-json-data query)))
+           (quoted-query (shell-quote-argument query))
+           (result (shell-command-to-string (format "echo %s | jp %s" quoted-json-data quoted-query)))
            (result-buffer (get-buffer-create "*JMESPath Result*")))
       (with-current-buffer result-buffer
         (erase-buffer)
