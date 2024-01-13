@@ -10,19 +10,23 @@ This is a small utility that uses ~jp~ underneath to query your JSON buffer and 
 
 Please refer [[https://github.com/jmespath/jp][jmespath]] repository to know more about the ~jp~ command line utility.
 
-** json-mode in emacs
-
-To install ~json-mode~, please refer the [[https://github.com/json-emacs/json-mode][json-mode]] repository.
-
 * Usage
 
+** Query a buffer
 1. Open a ~JSON~ file.
-2. Run the function using ~M-X jmespath-query~.
+2. Run the function using ~M-X jmespath-query-and-show~.
 3. Enter your JMESPath query and press enter.
+** Query a file
+1. Run the function with universal-argument set, ~C-u M-x jmespath-query-and-show~
+2. Enter your JMESPath query and press enter.
+3. Enter the file you want to query on and press enter.
+** Get the result in your program
+You can use ~jmespath-query-buffer~ and ~jmespath-query-file~ in yout program to run the query and get the result as string output.
 
 * Example
 
-Open a scratch buffer with ~json-mode~ or open the below source code in org special edit.
+** Query a buffer
+Open a scratch buffer or open the below source code in org special edit.
 
 #+begin_src json
 {"employees":[
@@ -37,8 +41,6 @@ Run the query ~@.employees[*].name~ by typing ~M-X jmespath-query~ to get an arr
 The output would be something like this.
 
 #+begin_src json
-JMESPath Query: @.employees[*].name
-
 [
   "Shyam",
   "Bob",
