@@ -41,20 +41,46 @@
 
 ;;; Code:
 
-(defun jmespath-query (query)
-  "Execute a JMESPath QUERY on the current buffer."
-  (interactive "sEnter JMESPath query: ")
+(defun jmespath-query-buffer (query &optional buffer)
+  "Execute a JMESPath QUERY on the specified BUFFER or the current buffer."
+  (with-current-buffer (or buffer (current-buffer))
+    (save-excursion
+      (let* ((json-data (buffer-substring-no-properties (point-min) (point-max)))
+             (quoted-json-data (shell-quote-argument json-data))
+             (quoted-query (shell-quote-argument query))
+             (result (shell-command-to-string (format "echo %s | jp %s" quoted-json-data quoted-query)))
+             (result-buffer (get-buffer-create "*JMESPath Result*")))
+        (with-current-buffer result-buffer
+          (erase-buffer)
+          (insert result)
+          (pop-to-buffer result-buffer))))))
+
+(defun jmespath-query-file (query filename)
+  "Execute a JMESPath QUERY on the specified FILENAME."
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (jmespath-query-buffer query (current-buffer))))
+
+(defun jmespath-query-buffer-and-show (query &optional input)
+  "Execute a JMESPath QUERY on the specified BUFFER or FILE (INPUT) and display."
+  (interactive
+   (list (read-string "Enter JMESPath query: ")
+         (if current-prefix-arg
+             (read-file-name "Select file: " nil nil t)
+           (current-buffer))))
+  (if (bufferp input)
+      (jmespath-query-buffer query input)
+    (jmespath-query-file query input)))
+
+(defun jmespath-query-buffer-programmatic (query)
+  "Execute a JMESPath QUERY on the current buffer and return the result string."
   (save-excursion
     (let* ((json-data (buffer-substring-no-properties (point-min) (point-max)))
            (quoted-json-data (shell-quote-argument json-data))
            (quoted-query (shell-quote-argument query))
-           (result (shell-command-to-string (format "echo %s | jp %s" quoted-json-data quoted-query)))
-           (result-buffer (get-buffer-create "*JMESPath Result*")))
-      (with-current-buffer result-buffer
-        (erase-buffer)
-        (insert (format "JMESPath Query: %s\n\n" query))
-        (insert result)
-        (pop-to-buffer result-buffer)))))
+           (result (shell-command-to-string (format "echo %s | jp %s" quoted-json-data quoted-query))))
+      result)))
 
 (provide 'jmespath)
+
 ;;; jmespath.el ends here
