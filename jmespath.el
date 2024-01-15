@@ -60,8 +60,8 @@
     (shell-command-to-string (format "jp -f %s %s" quoted-filename quoted-query))))
 
 ;; Interactives
-(defun jmespath-query-and-show (query &optional input)
-  "Execute a JMESPath QUERY on a BUFFER or FILE (INPUT) and display result."
+(defun jmespath-query-and-show (query &optional target)
+  "Executes JMESPath query on the current buffer or a target file (with C-u)."
   (interactive
    (list (read-string "Enter JMESPath query: " "@")
          (if current-prefix-arg
